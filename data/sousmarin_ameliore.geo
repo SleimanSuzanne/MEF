@@ -1,4 +1,4 @@
-h = 0.02; //Taille caractéristique des éléménts
+h = 0.1; //Taille caractéristique des éléménts
 l = 1; //longueur du sous marin
 
 Point(1) = {0,0,0,h};
