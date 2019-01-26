@@ -1,4 +1,7 @@
 h = 2; //Taille caractéristique des éléménts
+l = 1; //longueur du sous marin
+R1 = 2.5;
+R2 = 1.5;
 
 // stade
 Point(1) = {-0.25, 0.125, 0, h};   // Construction des points
@@ -33,10 +36,10 @@ Circle(8) = {11,10,9};
 Line Loop(1) = {1,3,4,2,5,6,7,8};  
 
 //Ellipse
-Point(13) = {-2.5,0,0,h};
-Point(14) = {0, 1.5,0,h};
-Point(15) = {2.5,0,0,h};
-Point(16) = {0,-1.5,0,h};
+Point(13) = {-R1,0,0,h};
+Point(14) = {0, R2,0,h};
+Point(15) = {R1,0,0,h};
+Point(16) = {0,-R2,0,h};
 
 Ellipse(9) = {13,12,13,14};
 

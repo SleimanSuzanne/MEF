@@ -1,4 +1,4 @@
-h = 2; //Taille caractéristique des éléménts
+h = 0.05; //Taille caractéristique des éléménts
 l = 1; //longueur du sous marin
 
 Point(1) = {0,0,0,h};
@@ -19,7 +19,7 @@ Ellipse(4) = {5,1,2,2};
 Line Loop(1) = {1,2,3,4};
 
 //sous marin
-Point(6) = {-3*l/16, l/16, 0, h};   // Construction des points
+Point(6) = {-l/4, l/16, 0, h};   // Construction des points
 Point(7) = {l/4, l/16, 0, h};
 Point(8) = {l/4, 0, 0, h};
 Point(9) = {l/4, -l/16, 0, h};
@@ -28,13 +28,11 @@ Point(11) = {-l/4, 0, 0, h};
 Point(12) = {-l/2, 0, 0, h};
 Point(13) = {5*l/16, 0, 0, h};
 
-Point(14) = {-l/16,l/16,0,h}; 
+Point(14) = {0,l/16,0,h}; 
 Point(15) = {-l/8,l/16,0,h}; 
+Point(16) = {-l/8,3*l/16,0,h};
 
-
-Point(16) = {-5*l/32,1/8,0,h};
-Point (28) ={-3*l/32,1/8,0,h};
-
+ 
 Line(6) = {9,10};  
 //Cercle droit
 Circle(7) = {7,8,13};
@@ -44,9 +42,8 @@ Ellipse(9) = {10,11,10,12};
 Ellipse(10) = {12,11,10,6};
 
 //Cercle haut 
-// Circle(11) = {6,15,16};
-// Circle(12) = {16,15,14};
-Spline(23)={6,16,28,14};
+Circle(11) = {6,15,16};
+Circle(12) = {16,15,14};
 
 //fenetre gauche
 Point(17) = {-l/4,l/32,0,h};
@@ -79,7 +76,7 @@ Spline(21) = {25,26,27,7};
 Line(5) = {14,25}; 
 Line(22) = {25,7};
 
-Line Loop(2) = {5,21,7,8,6,9,10,23};  
+Line Loop(2) = {5,21,7,8,6,9,10,11,12};  
 
 
 
@@ -88,6 +85,6 @@ Physical Surface(1) = {1,2};
 //bord ext tag = 1
 Physical Line(1) = {1,2,3,4};
 //bord ext tag = 2 
-Physical Line(2) = {5,6,7,8,9,10,23,21};
+Physical Line(2) = {5,6,7,8,9,10,11,12,21};
 
 
