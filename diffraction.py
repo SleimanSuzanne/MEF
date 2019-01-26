@@ -8,9 +8,17 @@ from construction_matrices import calc
 #Lecture du fichier gmsh et extraction des elements connectivite 
 nodes, nbNodes, segment, triangle, bordext, bordint = lecture_fichier("data/cercle.msh")
 E = calc(triangle, nodes, segment, bordext, bordint)
-E.matM()
+
+#param
+nlambda=15
+h=0.1
+k=(2*np.pi)/(h*nlambda)
+
+E.matM(k)
+E.matMbord(k)
 E.matD()
-E.Dirichlet()
+E.constructA()
+E.Dirichlet(k)
 E.solve_eq()
 
 #Verification
@@ -23,10 +31,11 @@ def verif(M,D, nbpts):
 	test1=D.dot(U)
 	return test, test1
 
+
 [Verif1, Verif2] = verif((E.M).toarray(),(E.D).toarray(), nbNodes) #doit etre egal a aire de omega
-# print('verif1: (devrait donner aire de omega) ')
-# print(Verif1)
-# print('verif2: (devrait donner 0')
-# print(Verif2)
+print('verif1: (devrait donner aire de omega) ')
+print(Verif1)
+print('verif2: (devrait donner 0')
+print(Verif2)
 
 ecriture_paraview(triangle, nodes, segment, E.u)
