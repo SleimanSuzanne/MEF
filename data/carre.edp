@@ -1,0 +1,3 @@
+load "gmsh";
+mesh Th=gmshload("carre.msh");
+plot(Th, wait= true, cmm = "Mon superbe maillage");
