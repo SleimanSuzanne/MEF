@@ -1,11 +1,11 @@
-h = 2; //Taille caractéristique des éléménts
+h = 0.02; //Taille caractéristique des éléménts
 l = 1; //longueur du sous marin
 
 Point(1) = {0,0,0,h};
 
 //Ellipse
-R1 = 1.5;
-R2 = 0.75;
+R1 = 1;
+R2 = 0.5;
 Point(2) = {-R1,0,0,h};
 Point(3) = {0, R2,0,h};
 Point(4) = {R1,0,0,h};
