@@ -81,19 +81,20 @@ class calc:
 			B[0][1]=(1/(aireD*2))*(-(n[self.triangle[p][1]-1][1]-n[self.triangle[p][0]-1][1]))
 			B[1][0]=(1/(aireD*2))*(-(n[self.triangle[p][2]-1][0]-n[self.triangle[p][0]-1][0]))
 			B[1][1]=(1/(aireD*2))*((n[self.triangle[p][1]-1][0]-n[self.triangle[p][0]-1][0]))
+			BTB=np.matmul(np.transpose(B),B)
 			for i in range(3):
 				I=self.triangle[p][i]-1
 				for j in range(3):
 					J=self.triangle[p][j]-1	
 					row.append(I);
 					col.append(J);
-					val= (aireD*np.transpose(Gphi[j])*np.transpose(B)*B*Gphi[i])
-					val=val[0][0]
+					val= (aireD*np.matmul(np.transpose(Gphi[j]),np.matmul(BTB,Gphi[i])))
 					data.append(val)
 		self.D = coo_matrix((data, (row, col)), shape=(nbnodes, nbnodes)).tocsr()
 
 	def constructA(self):
 		self.A =  self.M+self.Mbord-self.D
+		#self.A = k**2*self.M+i*k*Mbord+D
 		self.A = (self.A).toarray()
 
 	def Dirichlet(self,k):
@@ -108,5 +109,10 @@ class calc:
 			self.A[self.bordint[i][0]-1,self.bordint[i][0]-1]=1
 			self.A[self.bordint[i][1]-1,self.bordint[i][1]-1]=1
 
-	def solve_eq(self):
+	def solve_eq(self,k):
 		self.u = np.linalg.solve(self.A, self.b)
+		nbnodes = len(self.nodes)
+		ui=[]
+		for i in range(nbnodes):
+			ui.append(uinc(self.nodes[i][0],self.nodes[i][1],k))
+		self.u = self.u + ui

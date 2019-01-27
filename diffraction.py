@@ -6,7 +6,7 @@ from lecture_ecriture_fichier import ecriture_paraview, lecture_fichier
 from construction_matrices import calc
 
 #Lecture du fichier gmsh et extraction des elements connectivite 
-nodes, nbNodes, segment, triangle, bordext, bordint = lecture_fichier("data/cercle.msh")
+nodes, nbNodes, segment, triangle, bordext, bordint = lecture_fichier("data/cercleFinal1352.msh")
 E = calc(triangle, nodes, segment, bordext, bordint)
 
 #param
@@ -19,7 +19,7 @@ E.matMbord(k)
 E.matD()
 E.constructA()
 E.Dirichlet(k)
-E.solve_eq()
+E.solve_eq(k)
 
 #Verification
 def verif(M,D, nbpts):
@@ -27,9 +27,9 @@ def verif(M,D, nbpts):
 	for i in range(nbpts):
 		U[i][0]=1
 	Ut =  np.transpose(U)
-	test = (Ut.dot(M)).dot(U)
-	test1=D.dot(U)
-	return test, test1
+	test=np.matmul(np.matmul(Ut,M),U)
+	test1=np.matmul(D,U)
+	return test[0][0], test1
 
 
 [Verif1, Verif2] = verif((E.M).toarray(),(E.D).toarray(), nbNodes) #doit etre egal a aire de omega

@@ -46,7 +46,7 @@ def ecriture_paraview(triangle, points, segment, u):
 	f.write('<Piece NumberOfPoints="'+str(len(points))+'" NumberOfCells="'+str(len(triangle))+'">\n')
 	f.write('<Points>\n<DataArray NumberOfComponents="3" type="Float64">\n')
 	for i in range(len(points)):
-		f.write(str(points[i][0])+' '+str(points[i][1])+' '+str(points[i][0])+'\n')
+		f.write(str(points[i][0])+' '+str(points[i][1])+' 0.0\n')
 	f.write('</DataArray>\n</Points>\n<Cells>\n<DataArray type="Int32" Name="connectivity">\n')
 	for i in range(len(triangle)):
 		f.write(str(triangle[i][0]-1)+' '+str(triangle[i][1]-1)+' '+str(triangle[i][2]-1)+'\n')
@@ -57,7 +57,7 @@ def ecriture_paraview(triangle, points, segment, u):
 		f.write(str(j)+'\n')
 	f.write('</DataArray>\n<DataArray type="UInt8" Name="types">\n')
 	for i in range(len(triangle)):
-		f.write(str(5)+'\n')
+		f.write('5\n')
 	f.write('</DataArray>\n</Cells>\n<PointData Scalars="solution">\n<DataArray type="Float64" Name="Real part" format="ascii">\n')
 	for i in u:
 		f.write(str(np.real(i))+'\n')
