@@ -8,6 +8,17 @@ def uinc(x,y,k):
     uinc=np.exp(np.complex(0,1)*k*(x*np.cos(alpha)+y*np.sin(alpha)))
     return uinc
 
+#Verification
+def verifMD_test(M,D, nbpts):
+	U=np.zeros((nbpts,nbpts))
+	for i in range(nbpts):
+		U[i][0]=1
+	Ut =  np.transpose(U)
+	test=np.matmul(np.matmul(Ut,M),U)
+	test1=np.matmul(D,U)
+	return test[0][0], test1
+
+
 class calc:
 	def __init__(self,triangle, points, segment, bordgaminf, bordgam):
 		self.triangle = triangle
@@ -16,7 +27,7 @@ class calc:
 		self.bordext = bordgaminf
 		self.bordint = bordgam
 		self.b=np.zeros(len(points))
-	def matM(self, k):
+	def matM(self):
 		n=np.asarray(self.nodes)
 		nbnodes = len(self.nodes)
 		row=[]
@@ -25,7 +36,7 @@ class calc:
 		Mep=[[2,1,1],[1,2,1],[1,1,2]]
 		for i in range(3):
 			for j in range(3):
-				Mep[i][j]=Mep[i][j]*(1./24.)*(k**2)
+				Mep[i][j]=Mep[i][j]*(1./24.)#*(k**2)
 		
 		for p in range(len(self.triangle)):
 			P1=(n[self.triangle[p][1]-1][0]-n[self.triangle[p][0]-1][0])*(n[self.triangle[p][2]-1][1]-n[self.triangle[p][0]-1][1])
@@ -42,7 +53,7 @@ class calc:
 
 		self.M = coo_matrix((data, (row, col)), shape=(nbnodes, nbnodes)).tocsr()
 
-	def matMbord(self, k):
+	def matMbord(self):
 		row=[]
 		col=[]
 		data=[]
@@ -50,7 +61,7 @@ class calc:
 		Cep=[[2,1],[1,2]]
 		for i in range(2):
 			for j in range(2):
-				Cep[i][j]=Cep[i][j]*np.complex(0,1)*(k)*(1./6.)*(-1) #np.complex : i 
+				Cep[i][j]=Cep[i][j]*(1./6.)#*np.complex(0,1)*(k)*(-1) #np.complex : i 
 
 		for s in range(len(self.bordext)):
 			sigma=np.linalg.norm(np.asarray(self.nodes[self.bordext[s][0]-1])-np.asarray(self.nodes[self.bordext[s][1]-1]))
@@ -92,8 +103,8 @@ class calc:
 					data.append(val)
 		self.D = coo_matrix((data, (row, col)), shape=(nbnodes, nbnodes)).tocsr()
 
-	def constructA(self):
-		self.A =  self.M+self.Mbord-self.D
+	def constructA(self,k):
+		self.A =  (k**2)*self.M-np.complex(0,1)*(k)*self.Mbord-self.D
 		#self.A = k**2*self.M+i*k*Mbord+D
 		self.A = (self.A).toarray()
 

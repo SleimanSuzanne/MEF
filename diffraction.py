@@ -3,7 +3,7 @@ from numpy import array
 from scipy.sparse import coo_matrix
 
 from lecture_ecriture_fichier import ecriture_paraview, lecture_fichier
-from construction_matrices import calc
+from construction_matrices import calc, verifMD_test
 
 #Lecture du fichier gmsh et extraction des elements connectivite 
 nodes, nbNodes, segment, triangle, bordext, bordint = lecture_fichier("data/cercleFinal1352.msh")
@@ -13,29 +13,17 @@ E = calc(triangle, nodes, segment, bordext, bordint)
 nlambda=15
 h=0.1
 k=(2*np.pi)/(h*nlambda)
-
-E.matM(k)
-E.matMbord(k)
+E.matM()
+E.matMbord()
 E.matD()
-E.constructA()
+E.constructA(k)
 E.Dirichlet(k)
 E.solve_eq(k)
 
-#Verification
-def verif(M,D, nbpts):
-	U=np.zeros((nbpts,nbpts))
-	for i in range(nbpts):
-		U[i][0]=1
-	Ut =  np.transpose(U)
-	test=np.matmul(np.matmul(Ut,M),U)
-	test1=np.matmul(D,U)
-	return test[0][0], test1
-
-
-[Verif1, Verif2] = verif((E.M).toarray(),(E.D).toarray(), nbNodes) #doit etre egal a aire de omega
-print('verif1: (devrait donner aire de omega) ')
-print(Verif1)
-print('verif2: (devrait donner 0')
-print(Verif2)
+# [Verif1, Verif2] = verifMD_test((E.M).toarray(),(E.D).toarray(), nbNodes)
+# print('verif1: (devrait donner aire de omega) ')
+# print(Verif1)
+# print('verif2: (devrait donner 0')
+# print(Verif2)
 
 ecriture_paraview(triangle, nodes, segment, E.u)
