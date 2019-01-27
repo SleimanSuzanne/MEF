@@ -29,11 +29,9 @@ Dossiers:
   
 Lancer dans le terminal:
 
-$python2 diffraction.py
-
-$cd output/
-
-$paraview cercle.vtu 
+    $python2 diffraction.py
+    $cd output/
+    $paraview cercle.vtu 
 
           
         
