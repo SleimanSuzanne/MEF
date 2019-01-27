@@ -40,8 +40,8 @@ def lecture_fichier(file):
 
 #pts, s, t, be, bi = lecture_fichier("carre_bord.msh")
 
-def ecriture_paraview(triangle, points, segment, u):
-	f = open("output/paraview.vtu", "w")
+def ecriture_paraview(triangle, points, segment, u, output):
+	f = open(output, "w")
 	f.write('<VTKFile type="UnstructuredGrid" version="1.0" byte_order="LittleEndian" header_type="UInt64">\n<UnstructuredGrid>\n')
 	f.write('<Piece NumberOfPoints="'+str(len(points))+'" NumberOfCells="'+str(len(triangle))+'">\n')
 	f.write('<Points>\n<DataArray NumberOfComponents="3" type="Float64">\n')
