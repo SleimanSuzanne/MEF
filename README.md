@@ -8,11 +8,16 @@ Dossiers:
   
  Fichiers:
   - "lecture_ecriture_fichier.py" : contient 2 fonctions
+  
         - "lecture_fichier(*.msh)" : prend un entrée un fichier .msh et retourne les noeuds, segments, triangles 
+        
         - "ecriture_paraview()" qui écrit le fichier .vtu dans le dossier output pour visualiser u 
   - "construction_matrices.py" : contient 2 fonctions et une classe:
+  
         - "uinc()" : définit l'onde incidente 
+        
         - "verifMD_test()" : fais 2 tests sur les matrices M et D 
+        
         - classe calc: contient plusieurs fonctions pour construire les matrices de rigidité (matD), de masse (matM) et de 
           masse de bord (matMbord), la matrice A finale construite à partir des matrices M, Mbord et D, une fonction Dirichlet 
           pour définir les conditions de Dirichlet sur les matrices A et b, et solve_eq qui résoud le système et donne u
