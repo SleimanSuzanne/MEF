@@ -26,9 +26,10 @@ Dossiers:
   
   
   Utilisation:
-  Dans diffraction.py, dans la variable "nom_data" mettre le nom d'un fichier du dossier data (sans l'extension), ex: cercle
   
-Lancer dans le terminal:
+  Dans diffraction.py, dans la variable "nom_data" mettre le nom d'un fichier du dossier data (sans l'extension)
+  
+ex: cercle, Lancer dans le terminal:
 
     $python2 diffraction.py
     $cd output/
