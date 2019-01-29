@@ -7,7 +7,7 @@ Mesh.MshFileVersion = 2.2;
 // Rint = {1, Min 0.1, Max 0.4, Step 0.1, Name "Rint"}
 // ];
 R = 2;
-h = 0.1;
+h = 0.05;
 Rint = 1;
 xc = 0;
 yc = 0;
