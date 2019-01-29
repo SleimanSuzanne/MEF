@@ -4,7 +4,12 @@ from scipy.sparse import coo_matrix
 
 
 def uinc(x,y,k):
+    w=[1,2,3,4,5]
     alpha=np.pi
+    #ondes d'herglotz
+    #uinc=0
+    #for i in range(5):
+    #    uinc=uinc+w[i]*np.exp(np.complex(0,1)*i*k*(x*np.cos(alpha)+y*np.sin(alpha)))
     uinc=np.exp(np.complex(0,1)*k*(x*np.cos(alpha)+y*np.sin(alpha)))
     return uinc
 
