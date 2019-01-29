@@ -1,0 +1,32 @@
+load "gmsh";
+mesh Th=gmshload("cercleFinal1352.msh");
+
+real R=2, xc=0, yc=0, r=1;
+real alpha=pi;
+real h=0.1;
+real nlambda=15;
+real k=(2*pi)/(h*nlambda);
+
+
+border b1(t=0,2*pi){x=xc+R*cos(t);y=yc+R*sin(t);}
+border b2(t=0,2*pi){x=xc+r/4*cos(t);y=yc+r/4*sin(t);}
+
+
+func uinc = exp(1i*k*(x*cos(alpha) + y*sin(alpha)));
+
+
+fespace Vh(Th, P1);
+
+Vh<complex> uh,vh;
+
+
+solve MonProbleme(uh,vh, solver=LU) = -int2d(Th)(dx(uh)*dx(vh)) - int2d(Th)(dy(uh)*dy(vh)) + int2d(Th)(k*k*uh*vh) - int1d(Th,b1)(1i*k*uh*vh) + on(b2, uh=-uinc);
+
+
+plot(Th, cmm="Th");
+
+Vh ure = real(uh);
+Vh abs = abs(uh + uinc);
+
+plot(ure, wait = true, cmm = "Solution", value = true, fill = true, dim = 2);
+
